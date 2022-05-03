@@ -15,8 +15,8 @@
             </span>
                 <template #dropdown>
                     <el-dropdown-menu>
-                        <el-dropdown-item>Action 1</el-dropdown-item>
-                        <el-dropdown-item>Action 2</el-dropdown-item>
+<!--                        <el-dropdown-item>Action 1</el-dropdown-item>-->
+<!--                        <el-dropdown-item>Action 2</el-dropdown-item>-->
                         <el-dropdown-item @click="$router.push('/login')">退出系统</el-dropdown-item>
                     </el-dropdown-menu>
                 </template>

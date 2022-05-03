@@ -18,9 +18,6 @@
                             <el-menu-item index="student" >
                                 <el-icon ><document /></el-icon>
                                 学生信息管理</el-menu-item>
-                            <el-menu-item index="home">
-                                <el-icon ><document /></el-icon>
-                                用户信息管理</el-menu-item>
                     </el-sub-menu>
                     <el-sub-menu index="Teacher Info">
                         <template #title>
@@ -31,10 +28,18 @@
                             <el-icon ><document /></el-icon>
                             教师信息管理</el-menu-item>
                     </el-sub-menu>
-                    <el-menu-item index="test2" >
-                        <el-icon><setting /></el-icon>
-                        <span>Navigator Three</span>
-                    </el-menu-item>
+                    <el-sub-menu index="test2" >
+                        <template #title>
+                            <el-icon><office-building /></el-icon>
+                            <span>少年宫信息</span>
+                        </template>
+                        <el-menu-item index="home" >
+                            <el-icon ><document /></el-icon>
+                            少年宫信息管理</el-menu-item>
+                        <el-menu-item index="notice" >
+                            <el-icon><tickets /></el-icon>
+                            通知公告管理</el-menu-item>
+                    </el-sub-menu>
                 </el-menu>
             </el-col>
         </el-row>
@@ -48,6 +53,8 @@
         UserFilled,
         Document,
         Setting,
+        OfficeBuilding,
+        Tickets
     } from '@element-plus/icons-vue'
     const handleOpen = (key: string, keyPath: string[]) => {
         console.log(key, keyPath)

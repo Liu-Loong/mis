@@ -86,7 +86,6 @@
         </el-table>
 
         <div style="margin-top: 10px">
-            <el-button @click="toggleSelection([tableData[1], tableData[2]])">切换第二、第三行的选中状态</el-button>
             <el-button @click="toggleSelection()">取消选择</el-button>
         </div>
         <!--分页器-->

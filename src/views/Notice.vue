@@ -17,29 +17,14 @@
                 </template>
             </el-popconfirm>
 
-
         </div>
         <!--弹窗表单-->
         <el-dialog v-model="dialogFormVisible" title="提示" width="35%" :model="form">
 
             <el-form :model="form" ref="form" :rules="rules">
-                <el-form-item label="姓名" :label-width="formLabelWidth" prop="teaname">
-                    <el-input v-model="form.teaname" autocomplete="off" placeholder="请输入姓名" size="default"></el-input>
-                </el-form-item>
-                <el-form-item label="年龄" :label-width="formLabelWidth" prop="age">
-                    <el-input v-model="form.age" maxlength="2" show-word-limit autocomplete="off" placeholder="请输入年龄" size="default"></el-input>
-                </el-form-item>
-                <el-form-item label="性别" :label-width="formLabelWidth" prop="sex">
-                    <el-radio v-model="form.sex" label="男" size="default">男</el-radio>
-                    <el-radio v-model="form.sex" label="女" size="default">女</el-radio>
-                </el-form-item>
-                <el-form-item label="联系方式" :label-width="formLabelWidth" prop="phone" >
-                    <el-input v-model="form.phone" maxlength="11" show-word-limit placeholder="请输入联系方式" autocomplete="off"  size="default"></el-input>
-                </el-form-item>
 
-
-                <el-form-item label="学历" :label-width="formLabelWidth" prop="edubackground">
-                    <el-select v-model="form.edubackground"  placeholder="请选择学历" size="default">
+                <el-form-item label="公告标题" :label-width="formLabelWidth" prop="title">
+                    <el-select v-model="form.title"  placeholder="请选择标题类型" size="default">
                         <el-option
                                 v-for="item in options"
                                 :key="item.value"
@@ -48,15 +33,30 @@
                     </el-select>
                 </el-form-item>
 
-                <el-form-item label="教学评分" :label-width="formLabelWidth" prop="evaluation">
-                    <el-select v-model="form.evaluation"  placeholder="请选择教学评分" size="default">
-                        <el-option
-                                v-for="item in options1"
-                                :key="item.value"
-                                :label="item.label"
-                                :value="item.value"/>
-                    </el-select>
+                <el-form-item label="发布日期" :label-width="formLabelWidth" prop="time">
+                    <el-col :span="11">
+                        <el-date-picker
+                                v-model="form.time"
+                                type="date"
+                                placeholder="请选择日期"
+                                size="default"
+                                style="width: 100%"
+                        />
+                    </el-col>
                 </el-form-item>
+
+                <el-form-item label="姓名" :label-width="formLabelWidth" prop="content" style="width: 80%">
+                    <el-input
+                            v-model="form.content"
+                            :autosize="{ minRows: 2, maxRows: 10}"
+                            type="textarea"
+                            placeholder="请输入内容"
+                            size="default"
+                    />
+<!--                    <el-input v-model="form.teaname" autocomplete="off" placeholder="请输入姓名" size="default"></el-input>-->
+                </el-form-item>
+
+
 
             </el-form>
 
@@ -81,12 +81,10 @@
                 @selection-change="handleSelectionChange">
             <el-table-column type="selection" width="55" />
             <el-table-column prop="id" label="ID" width="130"  />
-            <el-table-column prop="teaname" label="姓名" width="130" />
-            <el-table-column prop="age" label="年龄" width="130" sortable/>
-            <el-table-column prop="sex" label="性别" width="130" sortable/>
-            <el-table-column prop="phone" label="联系方式" width="130" />
-            <el-table-column prop="edubackground" label="学历" width="130" sortable/>
-            <el-table-column prop="evaluation" label="教学评分" width="130" sortable/>
+            <el-table-column prop="title" label="公告标题" width="130" />
+            <el-table-column prop="time" label="发布日期" width="130" sortable/>
+            <el-table-column prop="content" label="公告内容" width="570" />
+
             <el-table-column fixed="right" label="操作" width="300">
 
                 <template #default="scope">
@@ -133,33 +131,21 @@
     } from '@element-plus/icons-vue'
 
     export default {
-        name:'Teacher',
+        name:'Notice',
         components:{
             CirclePlus,Delete,Edit,Search
         },
         data() {
             return {
                 rules:{
-                    teaname:[{ required: true, message: '请输入姓名', trigger: 'blur' },
-                        { min: 2, max: 5, message: '长度在 2 到 5 个字符', trigger: 'blur' }],
-                    age:[{ required: true, message: '请输入年龄', trigger: 'blur' }],
-                    sex:[{required: true, message: '请选择性别', trigger: 'change',}],
-                    phone: [{ required: true, message: '请输入联系方式', trigger: 'blur' },
-                        { min: 11, max: 11, message: '请输入正确的号码格式', trigger: 'blur' }],
-                    edubackground:[{required: true, message: '请选择学历', trigger: 'change'}],
-                    evaluation:[{required: true, message: '请选择教学评分', trigger: 'change'}],
+                    title:[{required: true, message: '请选择公告类型', trigger: 'change'}],
+                    time: [{type: 'date', required: true, message: '请选择时间', trigger: 'change'}],
+                    content:[{ required: true, message: '请输入公告内容', trigger: 'blur' }]
                 },
                 options:[
-                    {value: '本科', label: '本科',},
-                    {value: '硕士', label: '硕士',},
-                    {value: '博士', label: '博士',}
-                ],
-                options1:[
-                    {value: '1', label: '1',},
-                    {value: '2', label: '2',},
-                    {value: '3', label: '3',},
-                    {value: '4', label: '4',},
-                    {value: '5', label: '5',},
+                    {value: '放假通知', label: '放假通知',},
+                    {value: '新开课程通知', label: '新开课程通知',},
+                    {value: '优惠活动通知', label: '优惠活动通知',}
                 ],
                 search:'',
                 currentPage:1,
@@ -192,7 +178,7 @@
                     this.$message.warning("请选择最少一条数据！");
                     return
                 }
-                request.post("api/teacher/deleteBatch",this.ids).then(res =>{
+                request.post("api/notice/deleteBatch",this.ids).then(res =>{
                     if (res.code === '200'){
                         this.$message.success("批量删除成功！");
                         this.query()//刷新表格数据
@@ -214,7 +200,7 @@
                 this.$refs[formName].validate((valid) =>{
                     if (valid){
                         if (this.form.id){
-                            request.put("/api/teacher",this.form).then(res =>{
+                            request.put("/api/notice",this.form).then(res =>{
                                 console.log(res);
                                 if (res.code === '200'){//恒等于
                                     this.$message({
@@ -228,7 +214,7 @@
                                 this.dialogFormVisible = false
                             })
                         }else {
-                            request.post("/api/teacher",this.form).then(res =>{
+                            request.post("/api/notice",this.form).then(res =>{
                                 console.log(res);
                                 if (res.code === '200'){//恒等于
                                     this.$message({
@@ -250,7 +236,7 @@
             },
             //获取后台数据
             query(){
-                request.get("/api/teacher",{
+                request.get("/api/notice",{
                     params:{
                         pageNum: this.currentPage,
                         pageSize: this.pageSize,
@@ -285,7 +271,7 @@
             //删除按钮
             handleDelete(id){
                 console.log(id);
-                request.delete("api/teacher/"+ id).then(res =>{
+                request.delete("api/notice/"+ id).then(res =>{
                     if (res.code === '200'){//恒等于
                         this.$message({
                             type:"success",

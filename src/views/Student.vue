@@ -203,7 +203,7 @@
                     return
                 }
                 request.post("api/student/deleteBatch",this.ids).then(res =>{
-                    if (res.code === '0'){
+                    if (res.code === '200'){
                         this.$message.success("批量删除成功！");
                         this.query()//刷新表格数据
                     }else {
@@ -226,7 +226,7 @@
                         if (this.form.id){
                             request.put("/api/student",this.form).then(res =>{
                                 console.log(res);
-                                if (res.code === '0'){//恒等于
+                                if (res.code === '200'){//恒等于
                                     this.$message({
                                         type:"success",
                                         message:"修改成功"
@@ -240,7 +240,7 @@
                         }else {
                             request.post("/api/student",this.form).then(res =>{
                                 console.log(res);
-                                if (res.code === '0'){//恒等于
+                                if (res.code === '200'){//恒等于
                                     this.$message({
                                         type:"success",
                                         message:"新增成功"
@@ -296,7 +296,7 @@
             handleDelete(id){
                 console.log(id);
                 request.delete("api/student/"+ id).then(res =>{
-                    if (res.code === '0'){//恒等于
+                    if (res.code === '200'){//恒等于
                         this.$message({
                             type:"success",
                             message:"删除成功"
