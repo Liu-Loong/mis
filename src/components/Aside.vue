@@ -28,7 +28,16 @@
                             <el-icon ><document /></el-icon>
                             教师信息管理</el-menu-item>
                     </el-sub-menu>
-                    <el-sub-menu index="test2" >
+                    <el-sub-menu index="Curriculum Info">
+                        <template #title>
+                            <el-icon><calendar /></el-icon>
+                            <span>课程信息</span>
+                        </template>
+                        <el-menu-item index="curriculum" >
+                            <el-icon ><document /></el-icon>
+                            课程信息管理</el-menu-item>
+                    </el-sub-menu>
+                    <el-sub-menu index="Notice Info" >
                         <template #title>
                             <el-icon><office-building /></el-icon>
                             <span>少年宫信息</span>
@@ -54,7 +63,8 @@
         Document,
         Setting,
         OfficeBuilding,
-        Tickets
+        Tickets,
+        Calendar
     } from '@element-plus/icons-vue'
     const handleOpen = (key: string, keyPath: string[]) => {
         console.log(key, keyPath)
