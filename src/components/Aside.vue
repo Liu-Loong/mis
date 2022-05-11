@@ -42,9 +42,6 @@
                             <el-icon><office-building /></el-icon>
                             <span>少年宫信息</span>
                         </template>
-                        <el-menu-item index="home" >
-                            <el-icon ><document /></el-icon>
-                            少年宫信息管理</el-menu-item>
                         <el-menu-item index="notice" >
                             <el-icon><tickets /></el-icon>
                             通知公告管理</el-menu-item>

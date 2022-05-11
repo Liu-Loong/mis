@@ -36,7 +36,7 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item label="上课时间" :label-width="formLabelWidth" prop="curriculumTime">
-                    <el-input v-model="form.curriculumTime" autocomplete="off" placeholder="请选择上课时间" size="default"></el-input>
+                    <el-input v-model="form.curriculumTime" autocomplete="off" placeholder="请输入上课时间" size="default"></el-input>
                 </el-form-item>
                 <el-form-item label="上课地点" :label-width="formLabelWidth" prop="curriculumPlace">
                     <el-select v-model="form.curriculumPlace"  placeholder="请选择上课地点" size="default">
@@ -172,17 +172,21 @@
         data() {
             return {
                 rules:{
-                    stuname:[{ required: true, message: '请输入姓名', trigger: 'blur' },
+                    curriculumName:[{ required: true, message: '请输入课程名称', trigger: 'blur' },
+                        { min: 3, max: 15, message: '长度在 3 到 15 个字符', trigger: 'blur' }],
+                    curriculumCategory:[{required: true, message: '请选择课程类别', trigger: 'change',}],
+                    curriculumTime:[{ required: true, message: '请输入上课时间', trigger: 'blur' },
+                        { min: 6, message: '请输入合法时间', trigger: 'blur' }],
+                    curriculumPlace:[{required: true, message: '请选择上课地点', trigger: 'change',}],
+                    curriculumDate:[{required: true, message: '请选择课程日程', trigger: 'change',}],
+                    curriculumPeriod:[{required: true, message: '请选择课程时段', trigger: 'change',}],
+                    studentId: [{ required: true, message: '请输入学生ID', trigger: 'blur' },
+                      ],
+                    teacherId: [{ required: true, message: '请输入学生ID', trigger: 'blur' },
+                        ],
+                    classTeacher:[{ required: true, message: '请输入授课教师', trigger: 'blur' },
                         { min: 2, max: 5, message: '长度在 2 到 5 个字符', trigger: 'blur' }],
-                    age:[{ required: true, message: '请输入年龄', trigger: 'blur' }],
-                    sex:[{required: true, message: '请选择性别', trigger: 'change',}],
-                    birthday: [{type: 'date', required: true, message: '请选择时间', trigger: 'change'}],
-                    classroom:[{required: true, message: '请输入所在班级', trigger: 'change'}],
-                    parents:[{ required: true, message: '请输入监护人姓名', trigger: 'blur' },
-                        { min: 2, max: 5, message: '长度在 2 到 5 个字符', trigger: 'blur' }],
-                    parrelation:[{required: true, message: '请选择监护人关系', trigger: 'change'}],
-                    parphone: [{ required: true, message: '请输入监护人联系方式', trigger: 'blur' },
-                        { min: 11, max: 11, message: '请输入正确的号码格式', trigger: 'blur' }],
+                    curriculumState:[{required: true, message: '请选择课程状态', trigger: 'change',}],
                 },
                 options:[
                     {value: '寒假班', label: '寒假班',},
@@ -319,9 +323,6 @@
                 }).then(res =>{
                     this.tableData = res.data.records;
                     this.total = res.data.total
-                    // console.log(this.search)
-                    // console.log(this.tableData)
-                    // console.log(this.total)
                 })
             },
             //多选框
