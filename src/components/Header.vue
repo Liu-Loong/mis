@@ -22,7 +22,6 @@
         </div>
 
     </div>
-</template>
 
 <script lang="ts" setup>
     import { ArrowDown, ElementPlus } from '@element-plus/icons-vue'

@@ -6,24 +6,30 @@
         <div style="width: 30%;display:flex;float:right; height: 100vh;">
             <div style="width: 300px;margin: 170px auto;">
                 <div style="color: dodgerblue;font-size: 30px; text-align:center;padding: 30px 0; ">欢迎登录</div>
-                <el-form :model="form" size="normal">
-                    <el-form-item >
+                <el-form :model="form" ref="form" size="default" :rules="rules">
+                    <el-form-item prop="account">
                         <el-input
-                                v-model="form.username "
+                                v-model="form.account "
+                                placeholder="请输入账号"
                                 size="large"
                                 clearable
                                 :prefix-icon="UserFilled"/>
                     </el-form-item>
-                    <el-form-item >
+                    <el-form-item prop="password">
                         <el-input
                                 v-model="form.password"
+                                placeholder="请输入密码"
                                 size="large"
                                 :prefix-icon="Lock"
                                 show-password/>
                     </el-form-item>
+                    <el-form-item  :label-width="formLabelWidth" prop="type">
+                        <el-radio v-model="form.type" label="admin" size="large">管理员</el-radio>
+                        <el-radio v-model="form.type" label="staff" size="large">职工</el-radio>
+                    </el-form-item>
                     <el-form-item >
-                        <el-button style="width: 100%;margin-top: 50px" type="primary" size="large" round
-                        @click="login">登录</el-button>
+                        <el-button style="width: 100%;" type="primary" size="large" round
+                        @click="login('form')">登录</el-button>
                     </el-form-item>
                 </el-form>
             </div>
@@ -48,22 +54,41 @@
         },
         data(){
             return{
+                rules:{
+                    account:[{required: true, pattern: /^[a-zA-Z]\w{1,18}$/,
+                        message: '以字母开头，长度在6~18之间，只能包含字符、数字和下划线', trigger: 'blur'}],
+                    password:[{required: true, pattern: /^\w+$/,
+                        message: '只能输入由数字、26个英文字母或者下划线组成的字符串',trigger: 'blur' }],
+                },
                 form:{}
             }
         },
         methods:{
-            login(){
-                request.post("api/user/login",this.form).then(res =>{
-                    if (res.code ==='200'){
-                        this.$message({
-                            type:"success",
-                            message:"登录成功"
+            login(forName){
+                this.$refs[forName].validate((valid) =>{
+                    if (valid){
+                        request.get("/api/user/login",{
+                            params:{
+                                username: this.form.username,
+                                password: this.form.password,
+                            }
+                        }).then(res =>{
+                            if (res.code ===200){
+                                this.$message({
+                                    type:"success",
+                                    message:"登录成功"
+                                })
+                                this.$router.push("/")//跳转到主页面
+                            }else{
+                                this.$message.error("用户名或密码错误")
+                            }
                         })
-                        this.$router.push("/")//跳转到主页面
                     }else{
-                        this.$message.error("用户名或密码错误")
+                        console.log("登录失败，提交表单失败！！！")
+                        return false;
                     }
                 })
+
             }
 
         }

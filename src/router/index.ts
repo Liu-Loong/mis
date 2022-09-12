@@ -1,14 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 import layout from '../layout/layout.vue'
-import test from "@/views/test.vue";
-import test2 from "@/views/test2.vue";
 const routes = [
   {
     path: '/',
     name: 'layout',
     component: layout,
-    redirect:"/home",//重定向
+    redirect:"/student",//重定向
     children:[
       {
         path:'home',
